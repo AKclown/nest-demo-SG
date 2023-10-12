@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>扫码登录确认</title>
+    <script src="https://unpkg.com/axios@1.5.0/dist/axios.min.js"></script>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      #info {
+        height: 400px;
+        line-height: 400px;
+        font-size: 20px;
+        padding: 20px;
+        text-align: center;
+      }
+      #confirm,
+      #cancel {
+        display: block;
+        width: 80%;
+        line-height: 40px;
+        font-size: 20px;
+        margin: 0;
+        margin-bottom: 20px;
+      }
+      #confirm {
+        background: skyblue;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="AKclown">登录AKclown账号</button>
+
+    <p id="info">是否确认登录AKclown网站？</p>
+    <button id="confirm">确认登录</button>
+    <button id="cancel">取消</button>
+    <script>
+      const params = new URLSearchParams(window.location.search.slice(1));
+
+      const id = params.get('id');
+      let token = '';
+
+      axios.get('http://192.168.3.108:3000/qrcode/scan?id=' + id).catch((e) => {
+        alert('二维码已过期');
+      });
+
+      document.getElementById('confirm').addEventListener('click', () => {
+        axios
+          .get('http://192.168.3.108:3000/qrcode/confirm?id=' + id, {
+            headers: {
+              authorization: 'Bearer ' + token,
+            },
+          })
+          .catch((e) => {
+            alert('二维码已过期');
+          });
+      });
+
+      document.getElementById('cancel').addEventListener('click', () => {
+        axios
+          .get('http://192.168.3.108:3000/qrcode/cancel?id=' + id)
+          .catch((e) => {
+            alert('二维码已过期');
+          });
+      });
+
+      document.getElementById('AKclown').addEventListener('click', () => {
+        axios
+          .get('http://192.168.3.108:3000/login', {
+            params: {
+              username: 'AKclown',
+              password: '111',
+            },
+          })
+          .then((res) => {
+            token = res.data.token;
+          });
+      });
+    </script>
+  </body>
+</html>

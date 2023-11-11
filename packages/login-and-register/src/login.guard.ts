@@ -9,6 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Observable } from 'rxjs';
 import { Request } from 'express';
 
+// 身份认证
 @Injectable()
 export class LoginGuard implements CanActivate {
   @Inject(JwtService)

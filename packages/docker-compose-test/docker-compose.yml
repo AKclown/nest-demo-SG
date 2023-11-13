@@ -1,0 +1,32 @@
+version: '1.0'
+services:
+  nest-app:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    restart: always
+    depends_on:
+      - mysql-container
+      - redis-container
+    ports:
+      - '3000:3000'
+    # networks:
+    #   - common-networks
+  mysql-container:
+    image: mysql
+    volumes:
+      - /c/Users/ak/Desktop/akclownMy:/var/lib/mysql
+    # networks:
+    #   - common-networks
+  redis-container:
+    image: redis
+    volumes:
+      - /c/Users/ak/Desktop/akclownRedis:/data
+    # networks:
+    #   - common-networks
+# networks:
+#   common-networks:
+#     driver: bridge
+
+# 默认设置一个myapp_default桥接
+# https://docs.docker.com/compose/networking/

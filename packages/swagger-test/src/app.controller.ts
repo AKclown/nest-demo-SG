@@ -15,6 +15,7 @@ import {
   ApiBearerAuth,
   ApiBody,
   ApiCookieAuth,
+  ApiHeader,
   ApiOperation,
   ApiParam,
   ApiQuery,
@@ -56,6 +57,10 @@ export class AppController {
     description: 'a2 param',
     required: true,
     example: 222,
+  })
+  @ApiHeader({
+    name: 'X-MyHeader',
+    description: 'Custom header',
   })
   @Get('aaa')
   aaa(@Query('a1') a1, @Query('a2') a2) {

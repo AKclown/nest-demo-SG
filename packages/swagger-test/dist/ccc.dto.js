@@ -10,8 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CccDto = void 0;
+const openapi = require("@nestjs/swagger");
 const swagger_1 = require("@nestjs/swagger");
 class CccDto {
+    static _OPENAPI_METADATA_FACTORY() {
+        return { aaa: { required: true, type: () => String }, bbb: { required: true, type: () => Number }, ccc: { required: true, type: () => [String] } };
+    }
 }
 exports.CccDto = CccDto;
 __decorate([

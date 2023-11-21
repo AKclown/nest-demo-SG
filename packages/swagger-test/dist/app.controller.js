@@ -13,6 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppController = void 0;
+const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
 const app_service_1 = require("./app.service");
 const swagger_1 = require("@nestjs/swagger");
@@ -48,6 +49,7 @@ exports.AppController = AppController;
 __decorate([
     (0, swagger_1.ApiTags)('AKclown-get'),
     (0, common_1.Get)(),
+    openapi.ApiResponse({ status: 200, type: String }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", String)
@@ -75,7 +77,12 @@ __decorate([
         required: true,
         example: 222,
     }),
+    (0, swagger_1.ApiHeader)({
+        name: 'X-MyHeader',
+        description: 'Custom header',
+    }),
     (0, common_1.Get)('aaa'),
+    openapi.ApiResponse({ status: 200, type: String }),
     __param(0, (0, common_1.Query)('a1')),
     __param(1, (0, common_1.Query)('a2')),
     __metadata("design:type", Function),
@@ -101,6 +108,7 @@ __decorate([
         example: 222,
     }),
     (0, common_1.Get)('bbb/:id'),
+    openapi.ApiResponse({ status: 200, type: String }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -118,6 +126,7 @@ __decorate([
         type: ccc_dto_1.CccDto,
     }),
     (0, common_1.Post)('ccc'),
+    openapi.ApiResponse({ status: 201, type: require("./ccc.vo").CccVo }),
     __param(0, (0, common_1.Body)('ccc')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [ccc_dto_1.CccDto]),

@@ -9,7 +9,6 @@ export class CccDto {
     required: true,
   })
   aaa: string;
-
   @ApiPropertyOptional({
     name: 'bbb',
     maximum: 60,
@@ -18,7 +17,6 @@ export class CccDto {
     example: 55,
   })
   bbb: number;
-
   @ApiProperty({ name: 'ccc', required: false })
   ccc: Array<string>;
 }

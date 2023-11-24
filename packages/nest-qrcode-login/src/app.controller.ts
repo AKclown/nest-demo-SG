@@ -94,7 +94,17 @@ export class AppController {
 
   @Get('qrcode/check')
   async check(@Query('id') id: string) {
-    return map.get(`qrcode_${id}`);
+    const info = map.get(`qrcode_${id}`);
+
+    if (info.status === 'scan-confirm') {
+      return {
+        token: await this.jwtService.sign({
+          userId: info.userInfo.userId,
+        }),
+        ...info,
+      };
+    }
+    return info;
   }
 
   @Get('qrcode/scan')
